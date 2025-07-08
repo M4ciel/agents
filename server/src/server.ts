@@ -1,5 +1,6 @@
 import { fastify } from "fastify";
 import {
+	jsonSchemaTransform,
 	serializerCompiler,
 	validatorCompiler,
 	type ZodTypeProvider,
@@ -8,7 +9,8 @@ import { fastifyCors } from "@fastify/cors";
 import { env } from "./env.ts";
 import { fastifySwagger } from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import { getRoomsRoute } from "./http/routes/get-rooms.ts";
+import { roomsRoute } from "./http/routes/rooms/index.ts";
+import { questionsRoute } from "./http/routes/questions/index.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -40,6 +42,7 @@ await app.register(fastifySwagger, {
 			},
 		],
 	},
+	transform: jsonSchemaTransform,
 });
 
 await app.register(fastifySwaggerUi, {
@@ -50,7 +53,8 @@ app.get("/health", () => {
 	return "OK";
 });
 
-app.register(getRoomsRoute);
+app.register(roomsRoute);
+app.register(questionsRoute);
 
 await app.ready();
 app.swagger();
