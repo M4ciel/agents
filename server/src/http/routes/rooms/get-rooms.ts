@@ -17,6 +17,7 @@ export const getRoomsRoute: FastifyPluginCallbackZod = (app) => {
 							id: z.string(),
 							name: z.string(),
 							questionsCount: z.coerce.number(),
+							createdAt: z.date(),
 						})
 					),
 				},
@@ -28,6 +29,7 @@ export const getRoomsRoute: FastifyPluginCallbackZod = (app) => {
 					id: schema.rooms.id,
 					name: schema.rooms.name,
 					questionsCount: count(schema.questions.id),
+					createdAt: schema.rooms.createdAt,
 				})
 				.from(schema.rooms)
 				.leftJoin(
