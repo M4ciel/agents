@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type GetRoomsApiResponse = Array<{
 	id: string;
 	name: string;
@@ -10,7 +12,7 @@ export function CreateRoomPage() {
 	const { data, isLoading } = useQuery({
 		queryKey: ["get-rooms"],
 		queryFn: async () => {
-			const response = await fetch("http://localhost:3333/rooms");
+			const response = await fetch(`${API_URL}/rooms`);
 			const result: GetRoomsApiResponse = await response.json();
 
 			return result;
