@@ -16,7 +16,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 app.register(fastifyCors, {
-	origin: "http://localhost:5173",
+	origin: ["http://localhost:5173", "https://agents-lime.vercel.app"],
 });
 
 await app.register(fastifySwagger, {
@@ -29,8 +29,14 @@ await app.register(fastifySwagger, {
 		},
 		servers: [
 			{
-				url: `http://localhost:${env.PORT}`,
-				description: "Development server",
+				url:
+					env.NODE_ENV === "production"
+						? "https://agents-server-uvvj.onrender.com"
+						: `http://localhost:${env.PORT}`,
+				description:
+					env.NODE_ENV === "production"
+						? "Render Production Server"
+						: "Development server",
 			},
 		],
 	},
