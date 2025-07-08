@@ -4,9 +4,9 @@ Projeto fullstack criado durante a NLW Agents da Rocketseat, combinando frontend
 
 ## Tecnologias
 - Frontend: React, Vite, Tailwind
-- Backend: Node.js, Fastify, TypeScript
+- Server: Node.js, Fastify, TypeScript
 - IA: OpenAI API
 
 ## Estrutura
 - `frontend/`: interface web
-- `backend/`: API e lógica de agentes
+- `server/`: API e lógica de agentes
