@@ -1,5 +1,7 @@
 services:
   nlw-agents-pg:
+    container_name: nlw-agents-pg
+    restart: unless-stopped
     image: pgvector/pgvector:pg17
     environment:
       POSTGRES_USER: docker
@@ -8,4 +10,4 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./db/setup.sql:/docker-entrypoint-initdb.d/setup.sql
