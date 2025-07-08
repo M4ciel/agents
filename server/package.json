@@ -34,7 +34,7 @@
 	},
 	"config": {
 		"commitizen": {
-			"path": "./node_modules/cz-emoji-conventional"
+			"path": "./server/node_modules/cz-emoji-conventional"
 		}
 	}
 }
