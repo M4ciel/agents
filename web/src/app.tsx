@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./components/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CreateRoomPage } from "./pages/rooms/create";
-import { DetailRoomPage } from "./pages/rooms/detail";
+import { CreateRoomPage } from "./pages/room/create";
+import { DetailRoomPage } from "./pages/room/detail";
 
 const queryClient = new QueryClient();
 
@@ -13,7 +13,7 @@ export function App() {
 				<BrowserRouter>
 					<Routes>
 						<Route element={<CreateRoomPage />} index />
-						<Route element={<DetailRoomPage />} path="/rooms/:id" />
+						<Route element={<DetailRoomPage />} path="/room/:roomId" />
 					</Routes>
 				</BrowserRouter>
 			</ThemeProvider>
