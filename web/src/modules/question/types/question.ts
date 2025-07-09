@@ -1,6 +1,6 @@
 export interface Question {
 	id: string;
 	question: string;
-	answer?: string | null;
+	answer: string | null;
 	createdAt: string;
 }

@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { QuestionForm, QuestionItem } from "@/modules/question";
+import {
+	QuestionFormComponent,
+	QuestionListComponent,
+} from "@/modules/question";
 import { ArrowLeft, Radio } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 
@@ -9,8 +12,6 @@ type DetailRoomProps = {
 
 export function DetailRoomPage() {
 	const { roomId } = useParams<DetailRoomProps>();
-
-	console.log(roomId);
 
 	if (!roomId) {
 		return <Navigate replace to="/" />;
@@ -49,24 +50,10 @@ export function DetailRoomPage() {
 				</div>
 
 				<div className="mb-8">
-					<QuestionForm roomId={roomId} />
+					<QuestionFormComponent roomId={roomId} />
 				</div>
 
-				<div className="space-y-6">
-					<div className="flex items-center justify-between">
-						<h2 className="font-semibold text-2xl text-foreground">
-							Perguntas & Respostas
-						</h2>
-					</div>
-
-					<QuestionItem
-						question={{
-							id: "1",
-							question: "Pergunta 1",
-							createdAt: new Date().toISOString(),
-						}}
-					/>
-				</div>
+				<QuestionListComponent roomId={roomId} />
 			</div>
 		</div>
 	);

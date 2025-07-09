@@ -7,7 +7,7 @@ interface QuestionItemProps {
 	question: Question;
 }
 
-export function QuestionItem({ question }: QuestionItemProps) {
+export function QuestionItemComponent({ question }: QuestionItemProps) {
 	const isGenerating = !question.answer;
 
 	return (
