@@ -21,8 +21,9 @@ interface QuestionFormProps {
 	roomId: string;
 }
 
-export function QuestionForm({ roomId }: QuestionFormProps) {
-	const { form, handleCreateQuestion } = useCreateQuestion(roomId);
+export function QuestionFormComponent({ roomId }: QuestionFormProps) {
+	const { createQuestionForm, handleCreateQuestion, isSubmitting } =
+		useCreateQuestion(roomId);
 
 	return (
 		<Card>
@@ -34,13 +35,15 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<Form {...form}>
+				<Form {...createQuestionForm}>
 					<form
 						className="flex flex-col gap-4"
-						onSubmit={form.handleSubmit(handleCreateQuestion)}
+						onSubmit={createQuestionForm.handleSubmit(
+							handleCreateQuestion
+						)}
 					>
 						<FormField
-							control={form.control}
+							control={createQuestionForm.control}
 							name="question"
 							render={({ field }) => (
 								<FormItem>
@@ -48,6 +51,7 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
 									<FormControl>
 										<Textarea
 											className="min-h-[100px]"
+											disabled={isSubmitting}
 											placeholder="O que você gostaria de saber?"
 											{...field}
 										/>
@@ -57,7 +61,11 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
 							)}
 						/>
 
-						<Button type="submit" className="cursor-pointer">
+						<Button
+							type="submit"
+							disabled={isSubmitting}
+							className="cursor-pointer"
+						>
 							Enviar pergunta
 						</Button>
 					</form>

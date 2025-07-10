@@ -11,7 +11,6 @@ import {
 import { type GetQuestionParams } from "./dto/get.dto.ts";
 import { type UploadQuestionParams } from "./dto/upload.dt.ts";
 import { GeminiService } from "../gemini/gemini.service.ts";
-import { vector } from "drizzle-orm/pg-core";
 
 export class QuestionService {
 	private readonly geminiService: GeminiService;
@@ -108,20 +107,7 @@ export class QuestionService {
 		}>,
 		reply: FastifyReply
 	) {
-		const { questionId } = request.params;
-
-		const question = await db
-			.select({
-				roomId: schema.questions.roomId,
-			})
-			.from(schema.questions)
-			.where(eq(schema.questions.id, questionId));
-
-		if (!question) {
-			throw new Error("Question not found");
-		}
-
-		const roomId = question[0].roomId;
+		const { roomId } = request.params;
 
 		const audio = await request.file();
 
@@ -144,7 +130,6 @@ export class QuestionService {
 			.insert(schema.audioChunks)
 			.values({
 				roomId,
-				questionId,
 				transcription,
 				embeddings,
 			})

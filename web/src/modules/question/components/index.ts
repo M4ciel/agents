@@ -1,2 +1,2 @@
 export * from "./question-form";
-export * from "./question-item";
+export * from "./question-list";
