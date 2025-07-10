@@ -1,17 +1,16 @@
 import { z } from "zod/v4";
 
 export const uploadQuestionParamsSchema = z.object({
-	questionId: z.string(),
+	roomId: z.string(),
 });
 
 export type UploadQuestionParams = z.infer<typeof uploadQuestionParamsSchema>;
 
 export const uploadQuestionResponseSchema = z.object({
 	id: z.string(),
-	questionId: z.number(),
-	roomId: z.number(),
+	roomId: z.string(),
 	transcription: z.string(),
-	embeddings: z.array(z.number()),
+	embeddings: z.number().array(),
 	createdAt: z.date(),
 });
 

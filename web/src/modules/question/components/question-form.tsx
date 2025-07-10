@@ -22,7 +22,7 @@ interface QuestionFormProps {
 }
 
 export function QuestionFormComponent({ roomId }: QuestionFormProps) {
-	const { createQuestionForm, handleCreateQuestion } =
+	const { createQuestionForm, handleCreateQuestion, isSubmitting } =
 		useCreateQuestion(roomId);
 
 	return (
@@ -51,6 +51,7 @@ export function QuestionFormComponent({ roomId }: QuestionFormProps) {
 									<FormControl>
 										<Textarea
 											className="min-h-[100px]"
+											disabled={isSubmitting}
 											placeholder="O que você gostaria de saber?"
 											{...field}
 										/>
@@ -60,7 +61,11 @@ export function QuestionFormComponent({ roomId }: QuestionFormProps) {
 							)}
 						/>
 
-						<Button type="submit" className="cursor-pointer">
+						<Button
+							type="submit"
+							disabled={isSubmitting}
+							className="cursor-pointer"
+						>
 							Enviar pergunta
 						</Button>
 					</form>

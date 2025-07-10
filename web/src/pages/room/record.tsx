@@ -16,6 +16,7 @@ export function RecordRoomPage() {
 	const { roomId } = useParams<RecordRoomProps>();
 	const [isRecording, setIsRecording] = useState(false);
 	const recorder = useRef<MediaRecorder | null>(null);
+	const intervalRef = useRef<NodeJS.Timeout>(null);
 
 	if (!roomId) {
 		return <Navigate replace to="/" />;
@@ -27,6 +28,10 @@ export function RecordRoomPage() {
 		if (recorder.current && recorder.current.state !== "inactive") {
 			recorder.current.stop();
 		}
+
+		if (intervalRef.current) {
+			clearInterval(intervalRef.current);
+		}
 	}
 
 	async function uploadAudio(audio: Blob) {
@@ -34,7 +39,7 @@ export function RecordRoomPage() {
 
 		formData.append("file", audio, "audio.webm");
 
-		const response = await fetch(`${API_URL}/question/${roomId}/audio`, {
+		const response = await fetch(`${API_URL}/questions/${roomId}/audio`, {
 			method: "POST",
 			body: formData,
 		});
@@ -44,21 +49,7 @@ export function RecordRoomPage() {
 		console.log(result);
 	}
 
-	async function startRecording() {
-		if (!isRecordingSupported) {
-			alert("O seu navegador nao suporta gravacao");
-			return;
-		}
-		setIsRecording(true);
-
-		const audio = await navigator.mediaDevices.getUserMedia({
-			audio: {
-				echoCancellation: true,
-				noiseSuppression: true,
-				sampleRate: 44_100,
-			},
-		});
-
+	function createRecorder(audio: MediaStream) {
 		recorder.current = new MediaRecorder(audio, {
 			mimeType: "audio/webm",
 			audioBitsPerSecond: 64_000,
@@ -79,6 +70,30 @@ export function RecordRoomPage() {
 		};
 
 		recorder.current.start();
+	}
+
+	async function startRecording() {
+		if (!isRecordingSupported) {
+			alert("O seu navegador nao suporta gravacao");
+			return;
+		}
+		setIsRecording(true);
+
+		const audio = await navigator.mediaDevices.getUserMedia({
+			audio: {
+				echoCancellation: true,
+				noiseSuppression: true,
+				sampleRate: 44_100,
+			},
+		});
+
+		createRecorder(audio);
+
+		intervalRef.current = setInterval(() => {
+			recorder.current?.stop();
+
+			createRecorder(audio);
+		}, 5000);
 	}
 	return (
 		<div className="h-screen flex flex-col gap-3 items-center justify-center">
