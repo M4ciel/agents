@@ -1,0 +1,2 @@
+ALTER TABLE "audio_chunks" ADD COLUMN "question_id" uuid NOT NULL;--> statement-breakpoint
+ALTER TABLE "audio_chunks" ADD CONSTRAINT "audio_chunks_question_id_questions_id_fk" FOREIGN KEY ("question_id") REFERENCES "public"."questions"("id") ON DELETE no action ON UPDATE no action;

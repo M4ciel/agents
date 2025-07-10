@@ -9,8 +9,9 @@ import { fastifyCors } from "@fastify/cors";
 import { env } from "./env.ts";
 import { fastifySwagger } from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import { roomsRoute } from "./http/routes/rooms/index.ts";
-import { questionsRoute } from "./http/routes/questions/index.ts";
+import fastifyMultipart from "@fastify/multipart";
+import { QuestionModule } from "./modules/question/question.module.ts";
+import { RoomModule } from "./modules/room/room.module.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -48,13 +49,14 @@ await app.register(fastifySwagger, {
 await app.register(fastifySwaggerUi, {
 	routePrefix: "/docs",
 });
+app.register(fastifyMultipart);
 
 app.get("/health", () => {
 	return "OK";
 });
 
-app.register(roomsRoute);
-app.register(questionsRoute);
+app.register(RoomModule);
+app.register(QuestionModule);
 
 await app.ready();
 app.swagger();
