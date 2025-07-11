@@ -7,7 +7,10 @@ const envSchema = z.object({
 	GEMINI_API_KEY: z.string(),
 	JWT_SECRET: z.string().default("supersecret"),
 	GOOGLE_CLIENT_ID: z.string().min(1, "GOOGLE_CLIENT_ID é obrigatório"),
-	GOOGLE_CLIENT_SECRET: z.string().min(1, "GOOGLE_CLIENT_SECRET é obrigatório"),
+	GOOGLE_CLIENT_SECRET: z
+		.string()
+		.min(1, "GOOGLE_CLIENT_SECRET é obrigatório"),
+	WEB_URL: z.string().url().default("http://localhost:5173"),
 });
 
 export const env = envSchema.parse(process.env);

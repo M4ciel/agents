@@ -17,13 +17,17 @@ import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
 import { fastifyOauth2 } from "@fastify/oauth2";
 
+const url =
+	env.NODE_ENV === "production"
+		? "https://agents-server-uvvj.onrender.com"
+		: `http://localhost:${env.PORT}`;
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 app.register(fastifyCors, {
-	origin: ["http://localhost:5173", "https://agents-lime.vercel.app"],
+	origin: [env.WEB_URL],
 	credentials: true,
 });
 
@@ -37,10 +41,7 @@ await app.register(fastifySwagger, {
 		},
 		servers: [
 			{
-				url:
-					env.NODE_ENV === "production"
-						? "https://agents-server-uvvj.onrender.com"
-						: `http://localhost:${env.PORT}`,
+				url,
 				description:
 					env.NODE_ENV === "production"
 						? "Render Production Server"
@@ -77,7 +78,7 @@ app.register(fastifyOauth2, {
 		auth: fastifyOauth2.GOOGLE_CONFIGURATION,
 	},
 	startRedirectPath: "/auth/google",
-	callbackUri: "http://localhost:3333/auth/google/callback",
+	callbackUri: `${url}/auth/google/callback`,
 });
 
 app.get("/health", () => {

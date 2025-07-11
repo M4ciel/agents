@@ -109,7 +109,7 @@ export class AuthService {
 			}
 
 			return reply.redirect(
-				`http://localhost:5173/signin?token=${accessToken}`
+				`${env.WEB_URL}/signin?token=${accessToken}`
 			);
 		} catch (error) {
 			return reply
