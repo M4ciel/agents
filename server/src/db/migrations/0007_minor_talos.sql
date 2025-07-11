@@ -1,0 +1,1 @@
+ALTER TABLE "rooms" RENAME COLUMN "public" TO "is_public";

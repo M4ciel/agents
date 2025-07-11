@@ -36,6 +36,48 @@
       "when": 1752119637527,
       "tag": "0004_demonic_blue_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1752187796280,
+      "tag": "0005_left_luke_cage",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1752190704269,
+      "tag": "0006_cultured_master_chief",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1752191537642,
+      "tag": "0007_minor_talos",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1752198645206,
+      "tag": "0008_fancy_hemingway",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1752200690362,
+      "tag": "0009_nebulous_wolfpack",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1752205962453,
+      "tag": "0010_good_puck",
+      "breakpoints": true
     }
   ]
 }

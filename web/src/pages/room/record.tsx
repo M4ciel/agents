@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { API_URL } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { RoomLayout } from "./_layout";
+import { HeaderComponent } from "@/components/header";
 
 const isRecordingSupported =
 	!!navigator.mediaDevices &&
@@ -96,17 +98,23 @@ export function RecordRoomPage() {
 		}, 5000);
 	}
 	return (
-		<div className="h-screen flex flex-col gap-3 items-center justify-center">
-			{isRecording ? (
-				<Button className="cursor-pointer" onClick={stopRecording}>
-					Parar Gravacao
-				</Button>
-			) : (
-				<Button className="cursor-pointer" onClick={startRecording}>
-					Gravar audio
-				</Button>
-			)}
-			{isRecording ? <p>Gravando...</p> : <p>Pausado</p>}
-		</div>
+		<RoomLayout>
+			<HeaderComponent title="Gravação de Áudio" />
+			<div className="flex-1 flex flex-col gap-3 items-center justify-center">
+				{isRecording ? (
+					<Button
+						className="cursor-pointer"
+						variant="destructive"
+						onClick={stopRecording}
+					>
+						Parar Gravacao
+					</Button>
+				) : (
+					<Button className="cursor-pointer" onClick={startRecording}>
+						Gravar audio
+					</Button>
+				)}
+			</div>
+		</RoomLayout>
 	);
 }

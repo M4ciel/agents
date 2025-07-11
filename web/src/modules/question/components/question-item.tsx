@@ -2,6 +2,7 @@ import { Bot, Loader2, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { dayjs } from "@/lib/dayjs";
 import type { Question } from "../types/question";
+import { LoadingComponent } from "@/components/loading";
 
 interface QuestionItemProps {
 	question: Question;
@@ -42,12 +43,7 @@ export function QuestionItemComponent({ question }: QuestionItemProps) {
 								</p>
 								<div className="text-muted-foreground">
 									{question.isGeneratingAnswer ? (
-										<div className="flex items-center space-x-2">
-											<Loader2 className="size-4 animate-spin text-primary" />
-											<span className="text-primary text-sm italic">
-												Gerando resposta...
-											</span>
-										</div>
+										<LoadingComponent message="Gerando respostas" />
 									) : (
 										<p className="whitespace-pre-line text-sm leading-relaxed">
 											{question.answer}

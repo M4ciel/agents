@@ -7,19 +7,29 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "@/lib/utils";
 import type { CreateRoomsResponse } from "../types/create-room-response";
+import { useAuthContext } from "@/contexts/auth/auth-context";
 
 export function useCreateRoom() {
+	const { user } = useAuthContext();
 	const queryClient = useQueryClient();
+
 	const createRoomForm = useForm<CreateRoomFormData>({
 		resolver: zodResolver(createRoomSchema),
 		defaultValues: {
 			name: "",
 			description: "",
+			isPublic: true,
+			userId: user!.id,
 		},
 	});
 
-	async function handleCreateRoom({ name, description }: CreateRoomFormData) {
-		await createRoom({ name, description });
+	async function handleCreateRoom({
+		name,
+		description,
+		isPublic,
+		userId,
+	}: CreateRoomFormData) {
+		await createRoom({ name, description, isPublic, userId });
 		createRoomForm.reset();
 	}
 

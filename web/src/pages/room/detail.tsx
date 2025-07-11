@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
 import {
 	QuestionFormComponent,
 	QuestionListComponent,
 } from "@/modules/question";
-import { ArrowLeft, Radio } from "lucide-react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { RoomLayout } from "./_layout";
+import { HeaderComponent } from "@/components/header";
 
 type DetailRoomProps = {
 	roomId: string;
@@ -18,43 +18,17 @@ export function DetailRoomPage() {
 	}
 
 	return (
-		<div className="min-h-screen">
-			<div className="container mx-auto max-w-4xl px-4 py-8">
-				<div className="mb-8">
-					<div className="mb-4 flex items-center justify-between">
-						<Link to="/">
-							<Button
-								variant="outline"
-								className="cursor-pointer"
-							>
-								<ArrowLeft className="mr-2 size-4" />
-								Voltar ao Início
-							</Button>
-						</Link>
-						<Link to={`/room/${roomId}/audio`}>
-							<Button
-								className="flex items-center gap-2 cursor-pointer"
-								variant="secondary"
-							>
-								<Radio className="size-4" />
-								Gravar Áudio
-							</Button>
-						</Link>
-					</div>
-					<h1 className="mb-2 font-bold text-3xl text-foreground">
-						Sala de Perguntas
-					</h1>
-					<p className="text-muted-foreground">
-						Faça perguntas e receba respostas com IA
-					</p>
-				</div>
-
-				<div className="mb-8">
-					<QuestionFormComponent roomId={roomId} />
-				</div>
-
-				<QuestionListComponent roomId={roomId} />
+		<RoomLayout>
+			<HeaderComponent
+				title="Sala de Perguntas"
+				description="Faça perguntas e receba respostas com IA"
+				roomId={roomId}
+			/>
+			<div className="mb-8">
+				<QuestionFormComponent roomId={roomId} />
 			</div>
-		</div>
+
+			<QuestionListComponent roomId={roomId} />
+		</RoomLayout>
 	);
 }
