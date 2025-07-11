@@ -7,6 +7,7 @@ import { SignInAuth } from "./pages/auth/signin";
 import { RecordRoomPage } from "./pages/room/record";
 import { RoomProviderWrapper } from "./contexts/room/room-wrapper";
 import { AuthProvider } from "./contexts/auth/auth-provider";
+import { NotFoundPage } from "./pages/not-found";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ export function App() {
 									path="/room/:roomId/audio"
 								/>
 							</Route>
+							<Route path="*" element={<NotFoundPage />} />
 						</Routes>
 					</BrowserRouter>
 				</AuthProvider>
