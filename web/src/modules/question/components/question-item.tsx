@@ -1,4 +1,4 @@
-import { Bot, Loader2, MessageSquare } from "lucide-react";
+import { Bot, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { dayjs } from "@/lib/dayjs";
 import type { Question } from "../types/question";
