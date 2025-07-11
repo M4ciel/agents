@@ -1,14 +1,18 @@
 import { RoomFormComponent, RoomListComponent } from "@/modules/room";
+import { RoomLayout } from "./_layout";
+import { ValidateRoom } from "@/modules/room/components/validate-room";
 
 export function CreateRoomPage() {
 	return (
-		<div className="min-h-screen px-4 py-8">
-			<div className="mx-auto max-w-4xl">
-				<div className="grid gap-8 grid-cols-2 items-start">
-					<RoomFormComponent />
+		<RoomLayout>
+			<div className="grid gap-8 grid-cols-2 items-start">
+				<RoomFormComponent />
+				<div className="flex flex-col gap-4">
+					<ValidateRoom />
+					<RoomListComponent isPublic/>
 					<RoomListComponent />
 				</div>
 			</div>
-		</div>
+		</RoomLayout>
 	);
 }

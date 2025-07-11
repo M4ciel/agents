@@ -1,0 +1,1 @@
+ALTER TABLE "rooms" ALTER COLUMN "public" SET DEFAULT true;

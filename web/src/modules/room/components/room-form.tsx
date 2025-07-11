@@ -17,6 +17,7 @@ import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 import { Textarea } from "../../../components/ui/textarea";
 import { useCreateRoom } from "@/modules/room/hooks/use-create-room";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function RoomFormComponent() {
 	const { createRoomForm, handleCreateRoom } = useCreateRoom();
@@ -70,6 +71,24 @@ export function RoomFormComponent() {
 										/>
 									</FormControl>
 									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={createRoomForm.control}
+							name="isPublic"
+							render={({ field }) => (
+								<FormItem className="flex">
+									<FormControl>
+										<Checkbox
+											checked={field.value}
+											onCheckedChange={(checked) =>
+												field.onChange(checked)
+											}
+										/>
+									</FormControl>
+									<FormLabel>Sala Pública</FormLabel>
 								</FormItem>
 							)}
 						/>
